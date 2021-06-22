@@ -1,0 +1,18 @@
+image: python:3.9
+
+pipelines:
+  custom:
+    customPipelineWithRunnerStep:
+      - step:
+          name: test     
+          script:
+            - python -m pytest -m unit
+
+      - step:
+          name: build
+          script:
+            - docker build -f Dockerfile.Helm -t parlai:${BITBUCKET_COMMIT} .
+      - step:
+          name: push
+          script:
+            - docker push parlai:${BITBUCKET_COMMIT}
