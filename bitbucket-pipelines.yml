@@ -16,3 +16,7 @@ pipelines:
           name: push
           script:
             - docker push parlai:${BITBUCKET_COMMIT}
+      - step:
+          name: run
+          script:
+            - docker run parlai:${BITBUCKET_COMMIT}
